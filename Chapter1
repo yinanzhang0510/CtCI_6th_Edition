@@ -1,0 +1,234 @@
+
+package solution;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class Chapter1 {
+	
+	public static void main(String[] args) {
+		//testProblem1();
+		//testProblem2();
+		//testProblem3();
+		//testProblem4();
+		//testProblem5();
+		//testProblem6();
+		//testProblem7();
+		//testProblem8();
+		testProblem9();
+	}
+	
+	  /*********************************************/
+	 /***************** Problem 1 *****************/
+	/*********************************************/
+	//This method used HashMap, which increases the space complexity, the time complexity 
+	//is OK
+	
+	private static void testProblem1() {
+		System.out.println("\n\nProblem1 test:\n");
+		String[] words = {"abcde", "hello", "apple", "kite", "padle", "!@$%", "$$"};
+		for (String word : words) {
+			System.out.println(word + ": " + checkStringUnique(word));
+		}
+	}
+		public static boolean checkStringUnique(String s) {
+			HashMap<Character, Integer> characterMap = new HashMap<Character, Integer>();
+			
+			for(int i = 0; i < s.length(); i++) {
+				if(characterMap.containsKey(s.charAt(i))) {
+					return false;
+				} else {
+					characterMap.put(s.charAt(i), 1);
+				}
+			}
+			return true;
+		}
+		
+		  /*********************************************/
+		 /***************** Problem 2 *****************/
+		/*********************************************/
+		
+		private static void testProblem2() {
+			System.out.println("\n\nProblem2 test:\n");
+			String a = "hello";
+			String b = "ehlol";
+			System.out.println(permutation(a,b));
+		}
+		public static String sort(String s){
+			char[] array = s.toCharArray();
+			Arrays.sort(array);
+			
+			//return Arrays.toString(array);
+			return new String(array);
+		}
+		public static boolean permutation(String a,String b){
+			if(a.length()!=b.length()){
+				return false;
+			}
+			else
+				return sort(a).equals(sort(b));
+		}
+		
+		  /*********************************************/
+		 /***************** Problem 3 *****************/
+		/*********************************************/
+		
+		private static void testProblem3() {
+			System.out.println("\n\nProblem3 test:\n");
+			String s = "Hello World!";
+			System.out.println(replaceSpaces(s));
+		}
+		
+		public static String replaceSpaces(String str){
+			
+			return str.replaceAll("\\s", "20%");
+
+	/*
+	 * Construct	Description
+	.	Any character (may or may not match line terminators)
+	\d	A digit: [0-9]
+	\D	A non-digit: [^0-9]
+	\s	A whitespace character: [ \t\n\x0B\f\r]
+	\S	A non-whitespace character: [^\s]
+	\w	A word character: [a-zA-Z_0-9]
+	\W	A non-word character: [^\w]
+	*/
+		}
+		
+		 /*********************************************/
+		 /***************** Problem 4 *****************/
+		/*********************************************/
+		private static void testProblem4() {
+			System.out.println("\n\nProblem4 test:\n");
+			String[] words = {"aabbccd","abcba","hello"};
+			for (String word : words) {
+				System.out.println(word + ": " + PermutePalindrome(word));
+			}
+		}
+		 public static boolean PermutePalindrome(String s) {
+		        if (s == null || s.length() == 0){
+		            return false;
+		        }
+		    
+		        HashSet<Character> hs = new HashSet<Character>();
+		        for(int i = 0; i<s.length(); i++){
+		            char c = s.charAt(i);
+		            if(hs.contains(c)){
+		                hs.remove(c);
+		            }
+		            else{
+		                hs.add(c);
+		            }
+		        }
+		        return hs.size() <=1;
+		        
+		    }
+		
+		 /*********************************************/
+		 /***************** Problem 5 *****************/
+		/*********************************************/
+		 
+		 
+		 private static void testProblem5() {
+				System.out.println("\n\nProblem5 test:\n");
+				String word1 = "pale";
+				String word2 = "ple";
+				String word3 = "pales";
+				String word4 = "bale";
+				String word5 = "bae";
+				
+				System.out.println(oneEditAway(word1,word2));
+				System.out.println(oneEditAway(word1,word3));
+				System.out.println(oneEditAway(word1,word4));
+				System.out.println(oneEditAway(word1,word5));
+				
+			}
+		 //One edit away
+		 public static boolean oneEditAway(String a,String b){
+			 if(Math.abs(a.length()-b.length())>1)
+				 return false;
+			 if(a.length()==b.length())
+				 return isReplace(a,b);
+			 if(a.length()>b.length())
+				 return oneCharDiff(a,b);
+			 else
+				 return oneCharDiff(b,a);
+		 }
+		 public static boolean oneCharDiff(String a,String b){//return true if it is delete or insert
+			 for(int i=0,j=0;i<a.length()&& j<b.length();i++,j++){
+				 if(a.charAt(i)!=b.charAt(j))
+					 return a.substring(i+1).equals(b.substring(j));//assume a is the longer string
+			 }
+			 return true;
+		 }
+		 public static boolean isReplace(String a,String b){//return true if replace a character 
+			 int diff = 0;
+			 for(int i=0;i<a.length();i++){
+				 if(a.charAt(i)!=b.charAt(i))
+					 diff++;
+			 }
+			 return diff==1;
+		 }
+		 
+		
+		 /*********************************************/
+		 /***************** Problem 6 *****************/
+		/*********************************************/
+		 private static void testProblem6() {
+				System.out.println("\n\nProblem6 test:\n");
+				String s = "abbcc";
+				System.out.println(s+" "+ compressedString(s));
+				/*String[] words = {"aabbccd","abc","hello","aaaaa"};
+				for (String word : words) {
+					System.out.println(word + ": " + compressedString(word));
+				}*/
+		}
+		 
+		 //String compression
+		 public static String compressedString(String s){
+			 if(s.length()<=1){
+				 return s;
+			 }
+			 StringBuilder sb = new StringBuilder();
+			 int count = 0;
+			 for(int i=0;i<s.length();i++){
+				 count++;
+				 //if a character is different from its next one.append this character to the result.
+				 //if a character is the last one of the string(it does not has its next char,append it to the result
+				 if( i >= s.length()-1 || s.charAt(i)!=s.charAt(i+1)){
+					 sb.append(s.charAt(i));
+					 sb.append(count);
+					 count = 0;
+				 }
+			 }
+			 return sb.toString();
+		 }
+		
+		 /*********************************************/
+		 /***************** Problem 7 *****************/
+		/*********************************************/
+		
+		 /*********************************************/
+		 /***************** Problem 8 *****************/
+		/*********************************************/
+		 
+		 /*********************************************/
+		 /***************** Problem 9 *****************/
+		/*********************************************/
+		 private static void testProblem9() {
+				System.out.println("\n\nProblem9 test:\n");
+				System.out.println("waterbottle <-----> erbottlewat : " + isRotation("waterbottle", "erbottlewat"));
+				System.out.println("waterbottle <-----> bottlewatre : " + isRotation("waterbottle", "bottlewatre"));
+		}
+		 //String rotation
+		 //concatenate a string with itself will contain its rotated substring(s2)
+		 public static boolean isRotation(String s1,String s2){
+			 
+			 if(s1.length()==s2.length() && s1.length()>0){
+				 return s1.concat(s1).contains(s2);
+			 }
+			 return false;
+		 }
+	
+}
